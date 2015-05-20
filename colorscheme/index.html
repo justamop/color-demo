@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<button onclick="getColors();">Click here</button> for <input id="num" type="text"> colors to go with <input id="col" type="color">
+<div id="colorShow"></div>
+<button onclick="getDistance();">Click here</button> for the difference between <input id="c1" type="color"> and <input id="c2" type="color">
+<div id="distShow"></div>
+<script src="colors.js"></script>
+<script>
+	function getColors() {
+		var color = document.getElementById("col").value;
+		var n = parseInt(document.getElementById("num").value, 10);
+
+		var colors = getColorsFromHex(color, n).map( function(hex) {
+			return '<div style="background-color: ' + hex + ';">' + hex + '</div>';
+		});
+
+
+		document.getElementById("colorShow").innerHTML = colors.reduce(function(prev, curr) { return prev + curr; }, "");
+	}
+
+	function getDistance() {
+		var color1 = document.getElementById("c1").value;
+		var color2 = document.getElementById("c2").value;
+
+		var dist = differenceHex(color1, color2);
+
+		document.getElementById("distShow").innerHTML = dist;
+	}
+</script>
+</body>
+</html>

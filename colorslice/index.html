@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="main.css">
+	</head>
+	<body>
+		<div class="color-group">
+			<br/>
+			<hr/>
+			<div>
+				<div class='color-compare-entry' id='comp-rgb'>RGB</div>
+				<div class='color-compare-entry' id='comp-yuv'>YUV</div>
+			</div>
+		</div>
+		<div class='left-bar'>
+			Base Color A: <input id="cola" type="color">
+			<br/>
+			Base Color B: <input id="colb" type="color">
+			<br/>
+			Coplanar Color: <input id="colc" type="color">
+			<br/>
+			Number of Colors: <input id="num" type="text">
+			<br/>
+			<button onclick="getColors();">Update</button>
+			<br/>
+			<a href='..'>Back</a>
+		</div>
+		<script src="../main.js"></script>
+		<script src="colorslice.js"></script>
+		<script>
+			function getColors() {
+				var colorA = document.getElementById("cola").value;
+				var colorB = document.getElementById("colb").value;
+				var colorC = document.getElementById("colc").value;
+				var n = parseInt(document.getElementById("num").value, 10);
+
+				var rgb1 = hexToRgb(colorA);
+				var rgb2 = hexToRgb(colorB);
+				var rgb3 = hexToRgb(colorC);
+
+				var ca = {
+					r: rgb1[0],
+					g: rgb1[1],
+					b: rgb1[2]
+				}
+
+				var cb = {
+					r: rgb2[0],
+					g: rgb2[1],
+					b: rgb2[2]
+				}
+
+				var cp = {
+					r: rgb3[0],
+					g: rgb3[1],
+					b: rgb3[2]
+				}
+
+				var yuv1 = rgbToYuv(ca.r, ca.g, ca.b);
+				var yuv2 = rgbToYuv(cb.r, cb.g, cb.b);
+				var yuv3 = rgbToYuv(cp.r, cp.g, cp.b);
+
+				var da = {
+					r: yuv1[0],
+					g: yuv1[1],
+					b: yuv1[2]
+				}
+
+				var db = {
+					r: yuv2[0],
+					g: yuv2[1],
+					b: yuv2[2]
+				}
+
+				var dp = {
+					r: yuv3[0],
+					g: yuv3[1],
+					b: yuv3[2]
+				}
+
+				document.getElementById("comp-rgb").innerHTML = 'RGB' + colorCircle(ca, cb, cp, n).map(function(entry) {
+					return rgbToHex(entry.x, entry.y, entry.z);
+				}).reduce(function(prev, next) {
+					return prev + '<div style="background-color: ' + next + ';">' + next + '</div>'
+				}, '');
+
+				document.getElementById("comp-yuv").innerHTML = 'YUV' + colorCircle(da, db, dp, n).map(function(entry) {
+					var newRgb = yuvToRgb(entry.x, entry.y, entry.z);
+					return rgbToHex(newRgb[0], newRgb[1], newRgb[2]);
+				}).reduce(function(prev, next) {
+					return prev + '<div style="background-color: ' + next + ';">' + next + '</div>'
+				}, '');
+			}
+		</script>
+	</body>
+</html>

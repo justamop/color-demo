@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="main.css">
+	</head>
+	<body>
+		<div class="color-group">
+			<br/>
+			<hr/>
+			<div>
+				<div class='color-compare-entry' id='comp-hsv'>HSV</div>
+				<div class='color-compare-entry' id='comp-yuv'>YUV</div>
+			</div>
+		</div>
+		<div class='left-bar'>
+			Base Color: <input id="col" type="color">
+			<br/>
+			Colors per Scale: <input id="num" type="text">
+			<br/>
+			<button onclick="getColors();">Update</button>
+			<br/>
+			<a href='..'>Back</a>
+		</div>
+		<script src="../main.js"></script>
+		<script>
+			function getColors() {
+				var color = document.getElementById("col").value;
+				var n = parseInt(document.getElementById("num").value, 10);
+
+				var rgb = hexToRgb(color);
+				var r = rgb[0];
+				var g = rgb[1];
+				var b = rgb[2];
+
+				var hsv = rgbToHsv(r, g, b);
+				var yuv = rgbToYuv(r, g, b);
+
+				document.getElementById("comp-hsv").innerHTML = 'HSV' + hsvHues(hsv[0], hsv[1], hsv[2], n).reduce(function(prev, next) {
+					return prev + '<div style="background-color: ' + next + ';">' + next + '</div>'
+				}, '');
+				document.getElementById("comp-yuv").innerHTML = 'YUV' + yuvHues(yuv[0], yuv[1], yuv[2], n).reduce(function(prev, next) {
+					return prev + '<div style="background-color: ' + next + ';">' + next + '</div>'
+				}, '');
+			}
+		</script>
+	</body>
+</html>

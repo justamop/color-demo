@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	</head>
+	<body>
+		<div>
+			Color: <input id="col" type="color">
+			<br/>
+			<button onclick="getColors();">Update</button>
+			<div id='rgb-num'>
+			</div>
+			<br/>
+			<div id='hsv-num'>
+			</div>
+			<br/>
+			<div id='hsl-num'>
+			</div>
+			<br/>
+			<div id='yuv-num'>
+			</div>
+		</div>
+		<script src="../main.js"></script>
+		<script>
+			function getColors() {
+				var color = document.getElementById("col").value;
+
+				var rgb = hexToRgb(color);
+				var r = rgb[0]
+				var g = rgb[1]
+				var b = rgb[2]
+
+				var hsv = rgbToHsv(r, g, b);
+				hsv[0] = (hsv[1] === 0 || hsv[2] === 0)? 'X' : hsv[0].toFixed(3) + '&deg;';
+				hsv[1] = hsv[2] === 0? 'X' : hsv[1].toFixed(3)
+
+				var hsl = rgbToHsl(r, g, b);
+				hsl[0] = (hsl[1] === 0 || hsl[2] === 0 || hsl[2] === 1)? 'X' : hsl[0].toFixed(3) + '&deg;';
+				hsl[1] = (hsl[2] === 0 || hsl[2] === 1)? 'X' : hsl[1].toFixed(3)
+
+				var yuv = rgbToYuv(r, g, b);
+
+				document.getElementById('rgb-num').innerHTML = 'r: ' + r.toFixed(3) + '<br/>g: ' + g.toFixed(3) + '<br/>b: ' + b.toFixed(3);
+				document.getElementById('hsv-num').innerHTML = 'h: ' + hsv[0] + '<br/>s: ' + hsv[1] + '<br/>v: ' + hsv[2].toFixed(3); 
+				document.getElementById('hsl-num').innerHTML = 'h: ' + hsl[0] + '<br/>s: ' + hsl[1] + '<br/>l: ' + hsl[2].toFixed(3);
+				document.getElementById('yuv-num').innerHTML = 'y: ' + yuv[0].toFixed(3) + '<br/>u: ' + yuv[1].toFixed(3) + '<br/>v: ' + yuv[2].toFixed(3);
+			}
+		</script>
+	</body>
+</html>

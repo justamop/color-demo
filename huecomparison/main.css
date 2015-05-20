@@ -1,0 +1,23 @@
+.color-group {
+	margin-left: 15%;
+	clear: both;
+}
+
+.color-compare-entry {
+	float: left;
+	width: 45%;
+	margin-left: 10px;
+	margin-right: 10px;
+	text-align: center;
+	font-family: monospace;
+}
+
+.left-bar {
+	position: fixed;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	width: 13%;
+	padding: 5px;
+	background-color: #dddddd;
+}
