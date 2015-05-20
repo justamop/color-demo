@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="stylesheet" type="text/css" href="main.css">
 	</head>
 	<body>
 		<div>
 			Color: <input id="col" type="color">
 			<br/>
 			<button onclick="getColors();">Update</button>
-			<div id='rgb-num'>
+			<div id='rgb-num' class='color-info'>
 			</div>
 			<br/>
-			<div id='hsv-num'>
+			<div id='hsv-num' class='color-info'>
 			</div>
 			<br/>
-			<div id='hsl-num'>
+			<div id='hsl-num' class='color-info'>
 			</div>
 			<br/>
-			<div id='yuv-num'>
+			<div id='yuv-num' class='color-info'>
 			</div>
 		</div>
 		<script src="../main.js"></script>
@@ -39,10 +40,10 @@
 
 				var yuv = rgbToYuv(r, g, b);
 
-				document.getElementById('rgb-num').innerHTML = 'r: ' + r.toFixed(3) + '<br/>g: ' + g.toFixed(3) + '<br/>b: ' + b.toFixed(3);
-				document.getElementById('hsv-num').innerHTML = 'h: ' + hsv[0] + '<br/>s: ' + hsv[1] + '<br/>v: ' + hsv[2].toFixed(3); 
-				document.getElementById('hsl-num').innerHTML = 'h: ' + hsl[0] + '<br/>s: ' + hsl[1] + '<br/>l: ' + hsl[2].toFixed(3);
-				document.getElementById('yuv-num').innerHTML = 'y: ' + yuv[0].toFixed(3) + '<br/>u: ' + yuv[1].toFixed(3) + '<br/>v: ' + yuv[2].toFixed(3);
+				document.getElementById('rgb-num').innerHTML = 'rgb<br/>r: ' + r.toFixed(3) + '<br/>g: ' + g.toFixed(3) + '<br/>b: ' + b.toFixed(3);
+				document.getElementById('hsv-num').innerHTML = 'hsv<br/>h: ' + hsv[0] + '<br/>s: ' + hsv[1] + '<br/>v: ' + hsv[2].toFixed(3); 
+				document.getElementById('hsl-num').innerHTML = 'hsl<br/>h: ' + hsl[0] + '<br/>s: ' + hsl[1] + '<br/>l: ' + hsl[2].toFixed(3);
+				document.getElementById('yuv-num').innerHTML = 'yuv<br/>y: ' + yuv[0].toFixed(3) + '<br/>u: ' + yuv[1].toFixed(3) + '<br/>v: ' + yuv[2].toFixed(3);
 			}
 		</script>
 	</body>
